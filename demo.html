@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>递归</title>
+</head>
+<body>
+    <script>
+        // 下楼梯
+        /*
+            假设有n个台阶，每次你可以跨一个台阶或者两个台阶，请问走这n个台阶有多少种走法？用编程求解。
+        */
+        // 递推公式 f(n) = f(n-1) + f(n-2);
+        // f(1) = 1;
+        // f(2) = 2;
+        function walk(n, mapDates = new Map()){
+            if(n < 0) return 0;
+            if(n == 1) return 1;
+            if(n == 2) return 2;
+            if(mapDates.has(n)){ //检查这个分支是否重复出现过
+                return mapDates.get(n);
+            }
+            let value = walk(n-1) + walk(n-2);
+            mapDates.set(n, value);
+            return value;
+        }
+        console.log("n=30：" + walk(30)); 
+
+        // 递归深度拷贝对象
+        const target = {
+            field1: 1,
+            field2: undefined,
+            field3: {
+                child: 'child'
+            },
+            field4: [2, 4, 8]
+        };
+        // let mapObject = new Map();
+        function clone(target, map = new Map()){
+            if(typeof target === 'object'){ //当target为对象或数组时
+                let cloneTarget = Array.isArray(target) ? [] : {};
+                if(map.has(target)){
+                    return map.get(target);
+                }
+                map.set(target, cloneTarget);
+                for(let key in target){
+                    cloneTarget[key] = clone(target[key], map);
+                }
+                return cloneTarget;
+            } else {
+                return target;
+            }
+        }   
+        let cloneObject = clone(target);
+        console.log("拷贝后的对象：")
+        console.log(cloneObject);
+
+        // 数组拍平
+        let array = [1,2,3, [1,2,[1.4], [1,2,3]]]
+        console.log("原数组");
+        console.log(array);
+        function flat(array = [], result = []){
+            array.forEach((item)=>{
+                if(Object.prototype.toString.call(item) === '[object Array]'){ //当item为数组时
+                       result = result.concat(flat(item, []));
+                } else {
+                    result.push(item);
+                }
+            });
+            return result;
+        }
+        console.log("拍平后的数组");
+        console.log(flat(array));
+    </script>
+</body>
+</html>
