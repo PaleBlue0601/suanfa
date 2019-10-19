@@ -11,18 +11,40 @@
         // 定义：如果一个问题的规模是n，解这一问题的某一算法所需要的时间为T(n)，它是n的某一函数T(n)称为这一算法的“时间复杂性”。
 
         // O(1)
-        var x = 1;
-        console.log(x);
+        var x = 1; //(1)
+        console.log(x); //(1)
 
         // O(n)
-        var sum = 0;
-        for(var i = 0; i < 100; i++){
-            sum += i;`
+        var sum = 0; //(1)
+        for(var i = 0; i < 100; i++){ //(n)
+            sum += i;   //(1)
         }
-        console.log(sum);
+        console.log(sum); //(1)
+        // f(n) = 1*n = n;
+        // T(n) = O(n);
 
         // O(n^2)
-        var 
+        var sum2 = 0; //(1)
+        var n = 10; //(1)
+        for(var i = 0; i < n; i++){ //(n)
+            console.log(i); //(1)
+            for(var j = 0; j < n; j++){ //(n)
+                sum2 += j; //(1)
+            }
+        }
+        console.log(sum2);//(1)
+        /*
+            f(n) = 1+1+n*n+1=n^2+3;
+            T(n) = O(n^2);
+        */
+        /* 
+            c < log2N < n < n * Log2N < n^2 < n^3 < 2^n < 3^n < n!
+
+                    最差时间复杂度     平均时间复杂度
+            二叉树     O(n^2)           O(n*logn) 
+            堆排序     O(n*logn)        O(n*logn)
+        */
+
     </script>
 </body>
 </html>
