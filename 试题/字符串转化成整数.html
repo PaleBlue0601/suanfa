@@ -66,31 +66,34 @@
         */
         // 正常的模拟
         var myAtoi = function(str) {
-            str = str.trim();
+            str = str.trim(); //清空字符串前后空格
+            // 当字符串为空时返回0
             if(str == '') {
                 return 0;
             }
-            var ret = "";
+            var extractStr = "";
             var strArr = str.split("");
             var len = strArr.length;
 
-            if(!isNumber(strArr[0])){
-                if(len > 2 && !isNumber(strArr[1])){ //当第一个字符不为数字或'-'时返回0
+            // 当第一个字符不为数字时且为不为'-'或'+'时返回0
+            if(!isNumber(strArr[0])){//当第一个字符不为数字时
+                if(strArr[0] != '-' && strArr[0] != '+'){
                     return 0;
                 }
             }
             for(var i = 0; i < len; i++){
-                if(isNumber(strArr[i]) || ret.length == 0){
-                    ret += strArr[i];
+                if(isNumber(strArr[i]) || extractStr.length == 0){
+                    extractStr += strArr[i];
                 } else {
                    break;
                 }
             }
 
-            // 判断是否超过数值范围
+            // 判断是否在[−2^31,  2^31 − 1]数值范围
             var INT_MAX = Math.pow(2, 31);
             var INT_MIN = -INT_MAX;
-            var intStr = parseInt(ret) ? parseInt(ret) : 0;
+            // 防止字符串只有'-'或'+'其中一个字符时的特殊情况
+            var intStr = parseInt(extractStr) ? parseInt(extractStr) : 0;
             if(intStr > INT_MAX-1){
                 intStr = INT_MAX-1;
             } else if(intStr < INT_MIN){
